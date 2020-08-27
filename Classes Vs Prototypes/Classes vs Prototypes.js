@@ -124,6 +124,7 @@ Prototype based language means that when you create an object, it automatically 
         this.firstName = fname;
         this.lastName = lname;
         this.id = id;
+
     }
 
 
@@ -147,6 +148,8 @@ let WomanP = function(firstName,lastName,id,age){
     this.age = age;
 }
 
+
+
 //  Step 4: Since WomanP is also a function(constructor), we need to create a prototype or in this case ,associate ManP constructor's methods to WomanP prototype.
 // Object.create() creates a new object, using an existing object as the prototype of the new object. 
 
@@ -160,11 +163,19 @@ WomanP.prototype = Object.create(ManP.prototype)
 WomanP.prototype.GreetWoman = function(){
     `This is a Woman specific message for the fellow Women`
 }
+
+
+
 let kunalManP = new ManP("Kunal","Dixit",123);
     let sonalWomanP= new WomanP("Sonal","Dixit","456",35)
 
     console.log(kunalManP)
     console.log(sonalWomanP)
+    // console.log(kunalManP.GreetWoman())
+
+    // ! Todo : WomanP is an extension to prototype ManP, thus it can use ManP methods, but how can ManP use methods specific to WomanP like GreetWoman();
+
+    //  ! todo: Check the same logic for classes
 
 // ****************
     /* OPTION B: CLASS BASED APPROACH */
