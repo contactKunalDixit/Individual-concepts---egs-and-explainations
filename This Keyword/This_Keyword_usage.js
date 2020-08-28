@@ -1,4 +1,6 @@
 /*
+//**** Reference: https://ui.dev/this-keyword-call-apply-bind-javascript/
+
 
 //*** Q: What is "This" ?
 This references the object that is executing the current function.
@@ -294,7 +296,7 @@ let user = new User("Kunal","38")
 
 // !    4)  Lexical Binding: only applicable with arrow aka fat arrow function: to be analysed later
 
-// !    5)  window Binding: If a stand alone function gets called without any context (Object), then the "this" there refers to tehe window Object.
+// !    5)  window Binding: If a stand alone function gets called without any context (Object), then the "this" there refers to the window Object.
 
 
 
