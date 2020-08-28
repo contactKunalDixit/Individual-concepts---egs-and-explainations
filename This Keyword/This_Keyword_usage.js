@@ -292,6 +292,11 @@ let user = new User("Kunal","38")
 
 
 
+// !    4)  Lexical Binding: only applicable with arrow aka fat arrow function: to be analysed later
+
+// !    5)  window Binding: If a stand alone function gets called without any context (Object), then the "this" there refers to tehe window Object.
+
+
 
 
 // !    Thus...GOLDEN RULE in summary:
