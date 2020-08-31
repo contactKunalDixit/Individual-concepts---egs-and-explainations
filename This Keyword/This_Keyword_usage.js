@@ -128,7 +128,7 @@ document.querySelector("#head3").addEventListener("mousedown", myFunc)
 
 
 //   In more simpler terms, if an object is calling a regular function, then "this" refers to that object
-// If the object is calling a fat arrow function, then "this" refers to the global object
+// If the object is calling a fat arrow function, then "this" refers to the global objectth
 
 //  For specifically arrow Functions aka fat arrow functions:
 // "This" refers to its PARENT and says where were you declared?
