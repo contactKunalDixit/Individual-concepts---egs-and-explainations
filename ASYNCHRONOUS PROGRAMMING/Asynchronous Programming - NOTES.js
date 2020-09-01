@@ -117,10 +117,38 @@ Some APIs do require some kind of authentication such as "O Auth"   *****
 
 XHR Object methods and working with Text
 
-Case : Getting Data from a "text file" on a local machine and bringing it in your web page/ application Asynchronously using the xhr object
+Case 1: Getting Data from a "text file" on a local machine and bringing it in your web page/ application Asynchronously using the xhr object
 
 
 // Using AJAX and xhr object to get data from a text file stored in your local machine:
+
+
+// ! HTML Code:
+
+//! **********************************************************************************
+// !    <!DOCTYPE html>
+// !    <html lang="en">
+// !    <head>
+// !    <meta charset="UTF-8">
+// !    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     //! <title>ROUGH BOOK</title>
+// !     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.css" !    integrity="sha512-5fsy+3xG8N/1PV5MIJz9ZsWpkltijBI48gBzQ/Z2eVATePGHOkMIn!    +xTDHIfTZFVb9GMpflF2wOWItqxAP2oLQ==" crossorigin="anonymous" />
+// !    </head>
+// !    <body>
+// !    
+// !    <div class="container">
+      //! <h1>ROUGH BOOK</h1>
+// !    
+       //! <button id="button">Get DATA</button>
+// !    <br><br>
+// !    
+// !    <div id="output"></div>
+// !    </div>
+// !    <script src="rough_book.js"></script>
+// !    
+// !    </body>
+// !    </html>
+//! **********************************************************************************
 
 document.getElementById("button").addEventListener("click", loadData);
 
@@ -163,10 +191,70 @@ function loadData() {
 // 
 // }
 
+/* Case 2: Working on BT : case 2 : AJAX and JSON - SINGLE ELEMENT IN THE JSON FILE
+/*
+
+
+document.querySelector("#button1").addEventListener("click", loadCustomer);
 
 
 
+function loadCustomer() {
+    let xhr = new XMLHttpRequest();
+    xhr.open("GET", "customer.json", true)
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            
+            const customer = JSON.parse(this.responseText);
 
+            const output = `
+        <ul>
+        <li>ID: ${customer.id}</li>
+        <li>Name: ${customer.name}</li>
+        <li>Company: ${customer.company}</li>
+        <li>Phone: ${customer.phone}</li>
+        `
+            document.querySelector("#customer").innerHTML = output;
+        }
+    }
+    xhr.send()
+}
+
+*/
+
+/* Case 2: Working on BT : case 2 : AJAX and JSON - ARRAY - Multiple ELEMENT IN THE JSON FILE */
+
+/*
+document.querySelector("#button2").addEventListener("click", loadCustomers);
+
+
+function loadCustomers() {
+    const xhr = new XMLHttpRequest();
+    xhr.open("GET", "customers.json", true)
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+
+            const customers = JSON.parse(this.responseText)
+            let output = "";
+
+            
+            customers.forEach(function (i) {
+
+            output += `
+            <ul>
+                <li>ID: ${i.id}</li>
+                <li>Name: ${i.name}</li>
+                <li>Company: ${i.company}</li>
+                <li>Phone: ${i.phone}</li>
+                </ul>
+        `
+                    document.querySelector("#customers").innerHTML = output;
+                }
+            )
+        }
+    }
+    xhr.send()
+} */
 /*
 
 * readyStateValues is a REDUNDANT status check mechanism that was in use before xhr.onload(). On the backend, the xhr.onload() still kind of uses the same check as readyState Values:
@@ -183,6 +271,87 @@ function loadData() {
 
 
 */
+
+// !  CHUCK NORRIS JOKES PROJECT - BRAD TRAVERSY - Asynchronous AJAX
+
+// ! HTML CODE:
+/*
+!<!DOCTYPE html>
+!<html lang="en">
+!  <head>
+!    <meta charset="UTF-8" />
+!    <meta name="viewport" content="width=device-width, !initial-scale=1.0" />
+!    <title>ROUGH BOOK</title>
+!    <link
+!      rel="stylesheet"
+!      href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/!skeleton.css"
+!      integrity="sha512-5fsy+3xG8N/1PV5MIJz9ZsWpkltijBI48gBzQ/!Z2eVATePGHOkMIn+xTDHIfTZFVb9GMpflF2wOWItqxAP2oLQ=="
+!      crossorigin="anonymous"
+!    />
+!  </head>
+!
+!  <body>
+!    <div class="container">
+!      <h1>Chuck Norris Joke Generator</h1>
+!      <form>
+!        <div>
+!          <label for="number">Number of Jokes</label>
+!          <input type="number" id="number" />
+!        </div>
+!        <div>
+!          <button class="get-jokes">Get jokes</button>
+!        </div>
+!      </form>
+!      <ul class="jokes"></ul>
+!    </div>
+!    <script src="rough_book.js"></script>
+!  </body>
+!</html>
+*/
+
+// @ JAVASCRIPT=====================
+
+// document.querySelector(".get-jokes").addEventListener("click", getJokes)
+// 
+// function getJokes(e) {
+// 
+    // const number = document.querySelector("input[type=number]").value;
+    // const xhr = new XMLHttpRequest();
+    // xhr.open("GET", `http://api.icndb.com/jokes/random/${number}`, true);
+// 
+// 
+    // xhr.onload = function () {
+        // if (this.status === 200) {
+            // const response = JSON.parse(this.responseText);
+            // console.log(response);
+            // let output = "";
+            // if (response.type === "success") {
+                // response.value.forEach(function (i) {
+                    // output += `<li>${i.joke}</li>`;
+                // });
+// 
+// 
+                // ! Always be watchful of how API sends the response...it could be different formats. for E.g. like in here, the jokes is an array in key"value"; whereas in other APIs, it could be formatted differently...SO BE WATCHFULL 
+            // } else {
+                // output += `<li>Something went wrong!!</li>`;
+// 
+            // }
+            // document.querySelector(".jokes").innerHTML = output;
+        // }
+    // }
+// 
+    // xhr.send()
+    // console.log(number)
+// 
+    // e.preventDefault()
+// }
+// 
+// * NOTE: Some API would give you freedom to place as much request as you'd like, but then there are some others which'll require you to authenticate/ register your app with them in order to use them..(mosstly financial)
+// 
+//  * SOme others like github API may allow you restricted access. i.e. you can place 100 request per hour but if you'd like more, then you need to register which will give you an API key which has to be included in your URL and then you can do unlimited request.
+// 
+
+
 
 
 
@@ -201,27 +370,34 @@ function loadData() {
 !   ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 ! An HTML code for the below e.g.:
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ROUGH BOOK</title>
-</head>
-<body>
-<header>
-    <h1>ROUGH BOOK</h1>
-    <button id="btn">Fetch Info for 3 New Animals</button>
-</header>
-<div id="animal-info"></div>
-
-
-
-    <script src="rough_book.js"></script>
-</body>
-</html>
-
+!   <!DOCTYPE html>
+!   <html lang="en">
+!   <head>
+!       <meta charset="UTF-8">
+!       <meta name="viewport" content="width=device-width, initial-scale=1.0">
+!       <title>ROUGH BOOK</title>
+!   </head>
+!   <body>
+!   <header>
+!       <h1>ROUGH BOOK</h1>
+!       <button id="btn">Fetch Info for 3 New Animals</button>
+!   </header>
+!   <div id="animal-info"></div>
+!   
+!   
+!   
+!       <script src="rough_book.js"></script>
+!   </body>
+!   </html>
+!   
 !   ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+
+
+
+
+
 
 
 

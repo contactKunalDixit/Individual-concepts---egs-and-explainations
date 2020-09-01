@@ -35,12 +35,14 @@
 
 Methods and properties used:
 
-let xhr = new XMLHttpRequest()
-xhr.open("get","url",true)
+let xhr = new XMLHttpRequest() : Instantiates the xhr object
+xhr.open("get","url",true) : opens a request
 xhr.onprogress(): for loaders and spinners (optional)
-xhr.onload()
+xhr.onload() : stating what should JS do when the response is recieved from servers
 xhr.responseText: gets you the response of your request
 xhr.onerror()
-xhr.send()
+xhr.send() : Initiates the request
 
 
+
+NOTE: You can do a validation check through online resources like JSON validator
