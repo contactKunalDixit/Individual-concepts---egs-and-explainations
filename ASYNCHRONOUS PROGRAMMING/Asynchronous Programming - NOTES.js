@@ -352,9 +352,131 @@ function loadCustomers() {
 // 
 
 
+// !    ++++++++++++++++++++++++++++++++++++++++++++++++++
+//BT -  NEW TOPIC: REST APIs & HTTP Requests
+
+/*
+
+API : stands for application program interface 
+
+Its a very broad term and can denote a provision for any two softwares to talk to each other.
+Fridge has APIs, Microphones can have APIs and cars have APIs and Internet of things works on the API concept in general.
+
+But in here, we are refering to Web APIs
+
+In more tecnical terms, its a contract provided by one software to another and uts a structured request and a structured response.
+
+Benefits of REST APIs:
+
+1.  Representational State Transfer
+2.  Architectural style for designing networked applications
+3.  Relies on a stateless, client-server protocol, alomost always HTTP
+4.  Treats server objects as resources that can be created, read and modified and destroyed.
+5.  Can be used by virtually any programming language
+6.  All APIs have their own rules and structures.
+
+API is the messanger and REST lets us use HTTP requests to format that message.
+
+REST API takes multiple types of HTTP requests like "GET", "POST" etc and we can make our own custom AJAX library to make these requests easier.
+
+Different kind of REST API requests:
+
+1.  GET:        Retrieve data from a specified reource
+2.  POST:       Submit data to be processed to a specified resource.e.g. add a post to the database or add a user details through a user submitted form.
+3.  PUT:        Update a specified resource that's already exists on the server.
+4.  DELETE:     Delete a specified resource
+
+ ? With POST, PUT and DELETE, you send the data alongwith your request to the server. That's obvious because the server needs to know the content they should update along with the requests like"POSTS" or "PUT" or "Delete".
+
+Apart form the above 4 mentioned API requests types, there can be:
+
+5.  HEAD:   Same as "GET" but does not return a body but just the header
+6.  OPTIONS:    Returns the supported HTTP methods of that specific server, or API
+7.  PATCH:      Update partial resources (Similar to PUT)
 
 
 
+Now, when you have some kind of API wether its your own or its external, you will be dealing with the term "endPoints" which are basically the URL addresses you'll be dealing with to do certain things. 
+
+End points can look like below:
+
+GET     https://someurl.com/api/users
+POST    https://someurl.com/api/users
+GET     https://someurl.com/api/users/1         - Get single user
+PUT     https://someurl.com/api/users/1         - Update user
+DELETE  https://someurl.com/api/users/1
+
+
+You may observe that the URL address is the same in all the above cases, its just that the request types are different.
+
+
+*/
+
+
+/*
+New Topic:           Callback function: 
+
+A call back function is a function which is passed as a parameter to another function and then is made use of within that function. e.g. the forEach functions we've used are callback function and is not asynchronous that is it does stop the processing of another process.
+
+setTimeOut takes out a callback function which is Asynchronous
+
+
+Demo  - using callbacks in Synchronous way
+
+const posts = [{title:"Post One", body:"This is post one"},
+{title:"Post Two", body:"This is post two"}] // the array has been created to mimic the server JSON response
+
+
+function createPost(i){
+setTimeout(function(){
+    posts.push(i);
+},2000)
+}
+
+function getPosts(){
+setTimeout(function(){
+let output = "";
+posts.forEach(function(i){
+output +=   `<li>${i.title}</li>`
+});
+document.body.innerHTML = output;
+},1000)
+}
+
+/* The functions are being passed without callback in synchronous manner . i.e. one after the other*/ 
+// 
+// createPost({title:"post Three",body:"This is post three"});
+
+// getPosts()
+// 
+
+
+
+// Demo using callback in Asynchronous way
+
+// const posts = [{title:"Post One", body:"This is post one"},
+// {title:"Post Two", body:"This is post two"}] // the array has been created to mimic the server JSON response
+// 
+// 
+// function createPost(i,callback){
+// setTimeout(function(){
+//     posts.push(i);
+//     callback();
+// },2000)
+// }
+// 
+// function getPosts(){
+// setTimeout(function(){
+// let output = "";
+// posts.forEach(function(i){
+// output +=   `<li>${i.title}</li>`
+// });
+// document.body.innerHTML = output;
+// },1000)
+// }
+// 
+// 
+// createPost({title:"post Three",body:"This is post three"},getPosts);
 
 
 
@@ -362,11 +484,20 @@ function loadCustomers() {
 
 /*
 
-?   Other References
 
-?   DATE: Aug 30                   /**********  JSON and AJAX Tutorial: With Real Examples 
+/* Next chapter - brad traversy - Custome HTTP Library (AJAX with callbacks) */
 
 
+
+
+
+
+
+// ?   Other References
+
+// ?   DATE: Aug 30                   /**********  JSON and AJAX Tutorial: With Real Examples 
+
+/*
 !   ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 ! An HTML code for the below e.g.:
 
@@ -501,5 +632,122 @@ function loadCustomers() {
 ?           
 ?           
 
+
+*/
+
+// !    - - - - - - -  DEV ED   - - - - - - - - - 
+
+/* AJAX: Asynchronous JavaScript and XML 
+
+AJAX allows us to make these requests to get the data from the server at the background.
+This data gets transfered in JSON or XML format but JSON is more popular and widely accepted.
+We receive the data from servers in JSON
+We parse it which converts it into javaScript usable objects and then
+We can make use of that or display it onScreen
+
+
+*/
+
+// * Synchronous Code Example - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+// 
+// function otherFunc(){
+//     console.log("We are in another funct")
+//     console.log("do some Stuff")
+// }
+// 
+// 
+// console.log("start")
+// otherFunc()
+// 
+// console.log("End")
+
+/* Now by default as is the nature of JAvaScript, it'll read the code line by line i.e. SYNCHRONOUSLY and builds up the callstack accordingly.
+
+A callstack is way for JavaScript to keep a track of your execution context.
+Now in the above scenario, javaScript starts reading the line one by one:
+
+1.  So it reads that right at the start some function named 'otherFunc' has been defined and moves over (Since it is just a defination and not Invocation) 
+2.  Reads & Invokes the first function - console log("Start") and executes it and REMOVES it from callStack
+3.  Invokes the otherFunc() and goes on to read and gets instructions on what it needs to do within the function. Follows it and concludes the function and REMOVES it from callStack
+4.  Moves to the  last function - console.log("End") and REMOVES it from CallStack.
+
+*/
+
+// * Asynchronous Code Example - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+// console.log("Start")
+// 
+// setTimeout(()=>{
+//     console.log("This is ASYNCHRONOUS e.g.")
+//     console.log("Some more Stuff")
+// },2000)
+// 
+// console.log("End")
+
+
+/* The function setTimeOut() or the event listeners are good example of elements that support Asynchronous approach in JS
+
+The above setTimeOut() function takes itself out of the main callStack and places itself in webAPI virtual section and its the Browser which keeps a track of this function's execution while the rest of the the flow runs normally in the main callStack.
+
+The Result: /Start
+            /End
+            /This is ASYNCHRONOUS e.g.
+            /Some more Stuff
+
+WHen the setTimeOut() function has been concluded, The browser brings itself back to the main callStack and projects the results.
+
+The Same behaviour is depicted by the call Events like "click" and others because they are also placed within the webAPI by browser and thus allow the rest of the code to follow normal flow execution and the browser only invokes the function within the addEventListener when the user initiates the event by click. that is the time when the browser brings it to the main callStack.
+
+Fetch is also Asynchronous in nature because it keeps on executing behind the scene while the rest of the execution in mainStack follows its normal course
+
+
+Now, all the functions we've discussed have the pattern of having callBack functions meaning each of these functions call Back another function within when invoked.
+
+for E.g. setTimeOut() is a function initself but calls back another function 
+()=>{
+    console.log("This is ASYNCHRONOUS e.g.")
+    console.log("Some more Stuff")
+}
+
+Now same is the case when we are fetching the data from the servers. We'd like the main callStack to continue its execution of the program while the Fetch fetches the data from the servers behind the curtains, And displays only when the data has been accumilated.
+
+Asynchronous coding will make use of callBack functions but not all callBacks are Asynchronous. for e.g. forEach also uses callBack function but then entire code runs in a SYNCHRONOUS manner and NOT Asynchrnously.
+
+*/
+
+
+// console.log("Start")
+// 
+// const items = [1,2,3,4,5]
+// 
+// items.forEach((item)=>{
+//     console.log(item)
+// })
+// console.log("End")
+
+
+//  * THUS, as seen above, NOT all callBacks functions would execute ASYNCHRONOUSLY. The above e.g. demos that even despite using a callback function, the code executes in a SYNCHRONOUS manner.
+
+
+
+
+/*
+
+let loginUser = (email,password,callback)=>{
+    setTimeout(()=>{
+        console.log("This is mimicing the response from the server and NOW we have the DATA")
+        callback({userEmail:email,userPassword:password});
+    },5000);
+}
+
+console.log("Start")
+const user = loginUser("kunalDixit1982@gmail.com",12345,(user)=>{
+console.log(user)
+})
+
+// console.log(user)
+
+console.log("End")
 
 */

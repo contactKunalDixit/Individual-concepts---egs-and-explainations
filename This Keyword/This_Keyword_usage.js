@@ -1,4 +1,81 @@
+/* 
+! GOLDEN RULE FOR "this" : It broadly follows and points to - where has it been 'invoked' or 'declared'(it points to its parent), with the only exception in when being used with Arrow function, where it checks and points to where its parent has been declared.(parent of the parent)
+
+!        so especially in the case when "this" is used within a nested arrow function within the FUNCTION/ CONSTRUCTOR, it will refer to the environment where its parent was declared in, which in this case will be the future object created through that constructor.
+
+!       
+*/
+
+/* W3 school 
+
+*The JavaScript "this" keyword refers to the object it belongs to.
+
+*It has different values depending upon where it is used:
+
+ * 1   In a method :   'this' refers to the OWNER object of that method.
+ * 2   Alone       :   'this' refers to the global object
+ * 3   In a function:  'this' refers to the global object because the owner of the function is the default binding for 'this'. Since owner of the function (which has been defined in global space)  is the parent window/ global, Hence, 'this' refers to global.
+ * 4   In a function (in strict mode) :    'this' is undefined because 'strict mode' doesnt allow default binding.
+ * 5   In an event:    'this' refers to the element that received the event because that's on the left side and is the parent/or trigger reason for  its existance.
+ 
+ * 6   Methods like call(), and apply() can refer 'this' to any object. This is also known as 'explicit function binding'.
+
+        Both call() and apply() are predefined JavaScript methods.
+        They can both be used to call an object method with another object as arguement.
+        
+        In the example below, when calling person1.fullName with person2 as arguement, 'this' will refer to person2, even if it is a method of person1:
+
+        var person1 = {
+            fullName: function(){
+                return (${this.fName} ${this.lName})
+            }
+        };
+            
+        var person2 = {
+            fName: "Kunal";
+            lName:"Dixit"
+        }
+
+        person1.fullName.call(person2)
+
+*/
+
 /*
+
+Reference : WikiPedia
+
+
+"This" is an important keyword, although what it evaluates to depends on where it is used.
+
+* When used outside any function, in global sp ace, this refers to the enclosing object, which in this case is the enclosing browser window, the window object.
+* When used in a function defined in the global space, what the keyword this refers to depends on how the function is called. When such a function is called directly (e.g. f(x)), this will refer back to the global space in which the function is defined, and in which other global functions and variables may exist as well (or in strict mode, it is undefined). If a global function containing this is called as part of the event handler of an element in the document object, however, this will refer to the calling HTML element.
+*When a method is called using the new keyword (e.g. var c = new Thing()) then within Thing this refers to the Thing object itself.
+*When a function is attached as a property of an object and called as a method of that object (e.g. obj.f(x)), this will refer to the object that the function is contained within.It is even possible to manually specify this when calling a function, by using the .call() or .apply() methods of the function object.[16] For example, the method call obj.f(x) could also be written as obj.f.call(obj, x).
+*To work around the different meaning of this in nested functions such as DOM event handlers, it is a common idiom in JavaScript to save the this reference of the calling object in a variable (commonly called that or self), and then use the variable to refer to the calling object in nested functions.
+
+For example:
+
+In this example $ is a reference to the jQuery library 
+$(".element").hover(function() {
+    Here, both this and that point to the element under the mouse cursor.
+    var that = this;
+    
+    $(this).find('.elements').each(function() {
+        Here, this points to the DOM element being iterated.
+        However, that still points to the element under the mouse cursor.
+        $(this).addClass("highlight");
+    });
+});
+
+
+? If the object is calling a fat arrow function, then "this" refers to the global objectth
+
+?  For specifically arrow Functions aka fat arrow functions:
+? "This" refers to its PARENT and says where were you declared? 
+?  you were declared in a global scope, so the global object is what I'll point at as well.
+? BUT if the "this" is a part of a nested function within an object(functions are objects too), THEN its parent is the nested function which was declared in that parent object, thus "this" will point to the parent object as well. 
+
+// ************************************************************************
 //**** Reference: https://ui.dev/this-keyword-call-apply-bind-javascript/
 
 
@@ -72,7 +149,7 @@ function Video(titleParameter) {
 
 const v = new Video("the concept video")
 
-/*The moment we use a new operator, it instantiates (creates) an empty object for us i.e.{} and "this refers to the same {},
+/*The moment we use a new operator, it instantiates (creates) an empty object for us i.e.{} and "this refers to the same new {},
 
 thats why when we do "this.title", its equalvalent of saying {}.title = titleParameter and JavaScript sets "title" as a key with its value as titleParameter*/
 
@@ -103,7 +180,7 @@ const videoDemo5 = {
         this.tags.forEach(function (tag) {
             /* this refers to the object"videoDemo4" because we are using it within the object method */
             console.log(this.title, tag) /* Since, there's an arguement that follows after the call back function in forEach(), thus "this" here refers to the arguement below */
-        }, this); /* "this" refers to the "thisArg" which refers to the object videoDemo4 itself, since it is being used in a method forEach which is directly a method of Object VideoDemo4  */
+        }, this); /* "this" denotes and refers to the "thisArg" which refers to the object videoDemo4 itself, since it is being used in a method forEach which is directly a method of Object VideoDemo4  */
     }
 }
 
@@ -124,16 +201,18 @@ document.querySelector("#head3").addEventListener("mousedown", myFunc)
 
 /* NOTE - IMPORTANT POINT TO TAKE NOTE OF */
 
-// when we are using simple regular functions, "This" points at who called the function, thus in above stated eg: DEMO 6, this refers to the object created by document.querySelector("#head3") when its called in the DOM and thus displays that too.
+// when we are using simple regular functions, "This" points at 'who'(or which object) called the function, thus in above stated eg: DEMO 6, this refers to the object created by document.querySelector("#head3") when its called in the DOM and thus displays that.o.
 
 
 //   In more simpler terms, if an object is calling a regular function, then "this" refers to that object
-// If the object is calling a fat arrow function, then "this" refers to the global objectth
 
-//  For specifically arrow Functions aka fat arrow functions:
-// "This" refers to its PARENT and says where were you declared?
-//  you were declared in a global scope, so the global object is what I'll point at as well
 
+//? If the object is calling a fat arrow function, then "this" refers to the global objectth
+
+//?  For specifically arrow Functions aka fat arrow functions:
+//? "This" refers to its PARENT and says where were you declared?
+//?  you were declared in a global scope, so the global object is what I'll point at as well.
+//? BUT if the "this" is a part of a nested function within an object(functions are objects too), THEN its parent is the nested function which was declared in that parent object, thus "this" will point to the parent object as well. 
 /*
 
 // *** The below is in continuation to above green Notes ref - https://ui.dev/this-keyword-call-apply-bind-javascript/
